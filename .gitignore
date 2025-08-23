@@ -1,0 +1,35 @@
+# =====================================
+# File dan folder yang ingin di-ignore
+# =====================================
+
+# Environment file
+.env
+
+# Python cache dan bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Log files
+*.log
+
+# Output build / distribusi
+dist/
+build/
+*.egg-info/
+
+# Node modules (jika ada frontend)
+node_modules/
+
+# File sementara lain
+*.tmp

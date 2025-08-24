@@ -194,18 +194,22 @@ def input_user(prompt_text, choices=None, capitalize=False):
     """
     while True:
         user_input = input(prompt_text).strip()
+
+        # Trigger AI 
         if user_input.lower().replace(" ", "") == "halomas":
             tanya_masyud()
             continue
+
+        # Kalau ada pilihan yang valid
         if choices:
-            if capitalize:
-                user_input = user_input.capitalize()
-            if user_input in choices or user_input.upper() in choices or user_input.lower() in choices:
+            # Normalisasi input biar fleksibel (bisa kecil, besar, campur)
+            if (user_input in choices or user_input.lower() in [c.lower() for c in choices]):
                 return user_input
             print(f"Input tidak valid. Pilihan: {', '.join(choices)}")
             continue
-        return user_input
 
+        # Kalau tidak ada choices, langsung return input
+        return user_input
 # =================== TABEL AWAL ===================
 def tabelAwal():
     """
@@ -248,7 +252,7 @@ print("Masukan jenis kendaraan yang akan di sewa dengan kode: ")
 print("mb = Mobil, mk = Motor, s = Sepeda")
 print("Contoh: mb1 untuk sewa mobil G-Class (nomor 1)")
 print("="*120)
-print("Ragu? Tanya ai masyud dengan ketik 'halo mas'")
+print("Ragu? Tanya ai masyud dengan ketik 'halo mas' di input manapun!")
 
 # Ambil input kendaraan
 kendaraan = input_user("Masukan jenis kendaraan yang akan di sewa : ").lower().replace(" ", "")

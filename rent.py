@@ -215,21 +215,33 @@ def input_user(prompt_text, choices=None, capitalize=False):
 def tabelAwal():
     """
     Menampilkan tabel daftar kendaraan, harga, dan kategori yang tersedia untuk disewa.
+
+    Tabel berisi 6 baris dan 4 kolom. Kolom pertama berisi nomor urut,
+    kolom kedua berisi kendaraan mobil, kolom ketiga berisi kendaraan motor,
+    dan kolom keempat berisi kendaraan sepeda.
     """
     data = [
+        # Baris 1
         ["1", "G-Class - Rp 5.000.000/hari", "Harley Davidson RG - Rp 2.500.000/hari", "Sepeda Listrik - Rp 20.000/hari"],
+        # Baris 2
         ["2", "BMW M4 - Rp 3.450.000/hari", "Yamaha R6 - Rp 700.000/hari", "Sepeda - Rp 10.000/hari"],
+        # Baris 3
         ["3", "Porsche 911 - Rp 2.800.000/hari", "Honda CBR 1000 RR - Rp 1.500.000/hari", ""],
+        # Baris 4
         ["4", "McLaren Senna - Rp 4.250.000/hari", "Yamaha XSR 155 - Rp 550.000/hari", ""],
+        # Baris 5
         ["5", "Toyota GR Supra - Rp 3.000.000/hari", "Sportster 48 - Rp 1.500.000/hari", ""],
+        # Baris 6
         ["6", "Toyota Alphard Hybrid - Rp 5.000.000/hari", "", ""],
     ]
     print("="*120)
     print("\n{:^120}".format("Apen Al-wawi Rent\n"))
     print("="*120)
     print("-"*120)
+    # Judul tabel
     print(f"{'No':<5} | {'Mobil':<35} | {'Motor':<40} | {'Sepeda':<20}")
     print("-"*120)
+    # Isi tabel
     for row in data:
         print(f"{row[0]:<5} | {row[1]:<35} | {row[2]:<40} | {row[3]:<20}")
     print("-"*120)

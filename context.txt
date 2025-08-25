@@ -14,6 +14,7 @@ Daftar harga kendaraan dan warna yang tersedia (per hari):
 - Porsche 911: Rp 2.800.000, Kuning, Putih
 - McLaren Senna: Rp 4.250.000, Oranye, Abu-abu
 - Toyota GR Supra: Rp 3.000.000, Merah, Putih, Hijau
+- Toyota Alphard Hybird: Rp 5.000.000, Hitam, Putih
 - Harley Davidson RG: Rp 2.500.000, Hitam, Coklat
 - Yamaha R6: Rp 700.000, Biru, Hitam
 - Honda CBR 1000 RR: Rp 1.500.000, Merah, Putih
@@ -37,3 +38,7 @@ Pajak:
 Diskon:
 - > 7 hari: diskon 5%
 - > 14 hari: diskon 10%
+
+Supir:
+- > 1 Hari: Rp 250.000
+Bisa sewa supir untuk semua tipe mobil

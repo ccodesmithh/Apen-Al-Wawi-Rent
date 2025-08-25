@@ -141,6 +141,7 @@ pilihan = {
     "mb3": ("Porsche 911", 2800000, ["Kuning", "Putih"]),
     "mb4": ("McLaren Senna", 4250000, ["Oranye", "Abu-abu"]),
     "mb5": ("Toyota GR Supra", 3000000, ["Merah", "Putih", "Hijau"]),
+    "mb6": ("Toyota Alphard Hybrid", 5000000, ["Hitam", "Putih"]),
     "mk1": ("Harley Davidson RG", 2500000, ["Hitam", "Coklat"]),
     "mk2": ("Yamaha R6", 700000, ["Biru", "Hitam"]),
     "mk3": ("Honda CBR 1000 RR", 1500000, ["Merah", "Putih"]),
@@ -221,6 +222,7 @@ def tabelAwal():
         ["3", "Porsche 911 - Rp 2.800.000/hari", "Honda CBR 1000 RR - Rp 1.500.000/hari", ""],
         ["4", "McLaren Senna - Rp 4.250.000/hari", "Yamaha XSR 155 - Rp 550.000/hari", ""],
         ["5", "Toyota GR Supra - Rp 3.000.000/hari", "Sportster 48 - Rp 1.500.000/hari", ""],
+        ["6", "Toyota Alphard Hybrid - Rp 5.000.000/hari", "", ""],
     ]
     print("="*120)
     print("\n{:^120}".format("Apen Al-wawi Rent\n"))
@@ -280,9 +282,24 @@ konfirmasi = input_user("Yakin akan sewa kendaraan ini? (Y/T) : ", choices=["Y",
 if konfirmasi == "T":
     exit()
 
+# =================== SOPIR ===================
+Sopir = 250000
+print("\n" * 2)
+print("=" * 40)
+print("Sopir")
+print("=" * 40)
+print("Harga sopir per hari : Rp", format_rupiah(Sopir))
+sopir = input_user("Apakah anda ingin sewa sopir? (Y/T) : ", choices=["Y","T"], capitalize=True)
+if sopir.upper() == "Y":
+    hargaSopir = 250000
+elif sopir.upper() == "T":
+    hargaSopir = 0
+else:
+    print("Input tidak valid!")
 # =================== HITUNG SUBTOTAL + PAJAK ===================
 jumlahHari = int(input_user("Masukan jumlah hari sewa kendaraan : "))
-subtotal = jumlahHari * harga
+totalHargaSopir = jumlahHari * hargaSopir
+subtotal = jumlahHari * harga + totalHargaSopir
 pajak = int(subtotal * 0.10)
 totalSebelumDiskon = subtotal + pajak
 
@@ -335,8 +352,25 @@ elif voucher != "":
 
 grandTotal = totalSetelahDiskon - diskonVoucher
 
+# =================== STRUK TAGIHAN ===================
+print("\n" + "=" * 120)
+print("                                                    Apen Al-wawi Rent")
+print("=" * 120)
+print("                                                    Bukti Penyewaan")
+print("-" * 120)
+print("Nama                         :", nama)
+print("Alamat                       :", alamat)
+print("Telepon                      :", telepon)
+print("Jenis Kelamin                :", jenisKelamin)
+print("Jenis Kendaraan              :", jenisKendaraan)
+print("Warna                        :", warna)
+print("Jumlah Hari Sewa             :", jumlahHari)
+print("Harga Sewa                   : Rp", format_rupiah(harga))
+print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
+print("Jumlah yang harus dibayar    : Rp", format_rupiah(grandTotal))
+
 # =================== METODE PEMBAYARAN ===================
-print("=" * 20)
+print("\n" + "=" * 20)
 print("             Metode Pembayaran")
 print("=" * 20)
 print("1. Tunai\n2. Transfer")
@@ -357,25 +391,26 @@ if pembayaran == "1":
     print("=" * 120)
     print("                                                    Bukti Pembayaran")
     print("-" * 120)
-    print("Nama                 :", nama)
-    print("Alamat               :", alamat)
-    print("Jenis Kelamin        :", jenisKelamin)
-    print(f"Nomor Telepon        : {telepon}")
-    print("--------------------------------")
+    print("Nama                                     :", nama)
+    print("Alamat                                   :", alamat)
+    print("Jenis Kelamin                            :", jenisKelamin)
+    print(f"Nomor Telepon                           : {telepon}")
+    print("--------------------------------------------------------------------------------------")
     print("Pesanan Anda:")
-    print("--------------------------------")
-    print(f"Jenis Kendaraan      : {jenisKendaraan}")
-    print(f"Jumlah Hari          : {jumlahHari}")
-    print(f"Subtotal             : Rp{format_rupiah(subtotal)}")
-    print(f"Pajak (10%)          : Rp{format_rupiah(pajak)}")
+    print("-------------------------------------------------------------------------------------")
+    print(f"Jenis Kendaraan                         : {jenisKendaraan}")
+    print(f"Jumlah Hari                             : {jumlahHari}")
+    print(f"Subtotal                                : Rp{format_rupiah(subtotal)}")
+    print(f"Pajak (10%)                             : Rp{format_rupiah(pajak)}")
     if diskonPersen > 0:
-        print(f"Diskon Durasi        : Rp{format_rupiah(diskon)}")
+        print(f"Diskon Durasi                       : Rp{format_rupiah(diskon)}")
     if diskonVoucher > 0:
-        print(f"Voucher Diskon       : Rp{format_rupiah(diskonVoucher)}")
-    print(f"Total Bayar          : Rp{format_rupiah(grandTotal)}")
-    print("Metode Pembayaran    : Tunai")
-    print("Nominal Pembayaran   : Rp", format_rupiah(uang))
-    print("Kembalian            : Rp", format_rupiah(kembalian))
+        print(f"Voucher Diskon                      : Rp{format_rupiah(diskonVoucher)}")
+    print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
+    print(f"Total Bayar                             : Rp{format_rupiah(grandTotal)}")
+    print("Metode Pembayaran                        : Tunai")
+    print("Nominal Pembayaran                       : Rp", format_rupiah(uang))
+    print("Kembalian                                : Rp", format_rupiah(kembalian))
     print("=" * 120)
 
     with open("struk_penyewaan.txt", "w", encoding="utf-8") as f:
@@ -395,10 +430,10 @@ if pembayaran == "1":
         f.write(f"Subtotal         : Rp{format_rupiah(subtotal)}\n")
         f.write(f"Pajak (10%)      : Rp{format_rupiah(pajak)}\n")
         if diskonPersen > 0:
-            f.write(f"Diskon Durasi    : Rp{format_rupiah(diskon)}\n")
+            f.write(f"Diskon Durasi     : Rp{format_rupiah(diskon)}\n")
         if diskonVoucher > 0:
-            f.write(f"Voucher Diskon   : Rp{format_rupiah(diskonVoucher)}\n")
-        f.write(f"Total Bayar      : Rp{format_rupiah(grandTotal)}\n")
+            f.write(f"Voucher Diskon    : Rp{format_rupiah(diskonVoucher)}\n")
+        f.write(f"Harga Sopir ({jumlahHari} x {format_rupiah(hargaSopir)}): Rp{format_rupiah(totalHargaSopir)}\n")
         f.write(f"Nominal Dibayar  : Rp{format_rupiah(uang)}\n")
         f.write(f"Kembalian        : Rp{format_rupiah(kembalian)}\n")
         f.write("==================================================\n")

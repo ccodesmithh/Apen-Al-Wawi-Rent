@@ -162,12 +162,25 @@ def tanya_masyud():
     User dapat keluar dengan mengetik 'keluar', 'exit', atau 'quit'.
     Jawaban AI berdasarkan data dan konteks rental.
     """
-    print("Masyud: Halo! Mau tanya apa seputar penyewaan? (ketik 'keluar', 'exit', 'quit' untuk berhenti interaksi)")
+    print("")
+    print("=" * 120)
+    print("(C) Copyright 2025 Rayud All Rights Reserved.")
+    print("Rayud Masyud | Version 0.8 | Powered by Gemini.")
+    print("Anda memasuki mode AI customer service. AI bersifat eksperimental dan mungkin akan membuat kesalahan. \nHarap periksa info penting. Ketik 'Pelajari Masyud' untuk info lebih lanjut.")
+    print("Ketik 'keluar', 'exit', 'quit' untuk berhenti interaksi.")
+    print("=" * 120)
+    print("Masyud: Halo! Mau tanya apa seputar penyewaan?")
     while True:
         pertanyaan = input("Anda: ")
         if pertanyaan.lower() in ["keluar", "exit", "quit"]:
             print("Masyud: Oke, sampai jumpa!")
             break
+        if pertanyaan.lower() in ["pelajari masyud"]:
+            print("=" * 120)
+            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 1.5 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui program ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.")
+            print("=" * 120)
+            continue
+        print("Masyud: [berfikir...]")
         full_prompt = f"""
         {base_context}
 
@@ -239,11 +252,11 @@ def tabelAwal():
     print("="*120)
     print("-"*120)
     # Judul tabel
-    print(f"{'No':<5} | {'Mobil':<35} | {'Motor':<40} | {'Sepeda':<20}")
+    print(f"{'No':<5} | {'Mobil':<50} | {'Motor':<40} | {'Sepeda':<20}")
     print("-"*120)
     # Isi tabel
     for row in data:
-        print(f"{row[0]:<5} | {row[1]:<35} | {row[2]:<40} | {row[3]:<20}")
+        print(f"{row[0]:<5} | {row[1]:<50} | {row[2]:<40} | {row[3]:<20}")
     print("-"*120)
 
 # =================== PILIH WARNA ===================

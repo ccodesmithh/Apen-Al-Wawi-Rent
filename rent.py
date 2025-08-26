@@ -118,7 +118,7 @@ api_key = os.getenv("MASYUD_API_KEY")
 
 masyud.configure(api_key=api_key)
 model = masyud.GenerativeModel(
-    "gemini-1.5-flash", 
+    "gemini-2.0-flash", 
     system_instruction="Kamu adalah customer service untuk Apen Al-wawi Rent. Jawablah hanya seputar layanan rental kendaraan ini."
 )
 
@@ -165,7 +165,7 @@ def tanya_masyud():
     print("")
     print("=" * 120)
     print("(C) Copyright 2025 Rayud All Rights Reserved.")
-    print("Rayud Masyud | Version 0.8 | Powered by Gemini.")
+    print("Rayud Masyud | Version 0.9.2 | Powered by Gemini.")
     print("Anda memasuki mode AI customer service. AI bersifat eksperimental dan mungkin akan membuat kesalahan. \nHarap periksa info penting. Ketik 'Pelajari Masyud' untuk info lebih lanjut.")
     print("Ketik 'keluar', 'exit', 'quit' untuk berhenti interaksi.")
     print("=" * 120)
@@ -177,7 +177,7 @@ def tanya_masyud():
             break
         if pertanyaan.lower() in ["pelajari masyud"]:
             print("=" * 120)
-            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 1.5 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui program ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.")
+            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui program ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.")
             print("=" * 120)
             continue
         print("Masyud: [berfikir...]")

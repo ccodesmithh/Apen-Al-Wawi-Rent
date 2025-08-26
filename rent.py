@@ -274,206 +274,208 @@ def pilih_warna(warnaTersedia):
     return input_user("Pilih warna kendaraan: ", choices=warnaTersedia, capitalize=True)
 
 # =================== MAIN PROGRAM ===================
-tabelAwal()
-print("Masukan jenis kendaraan yang akan di sewa dengan kode: ")
-print("mb = Mobil, mk = Motor, s = Sepeda")
-print("Contoh: mb1 untuk sewa mobil G-Class (nomor 1)")
-print("="*120)
-print("Ragu? Tanya ai masyud dengan ketik 'halo mas' di input manapun!")
+def main():
+    tabelAwal()
+    print("Masukan jenis kendaraan yang akan di sewa dengan kode: ")
+    print("mb = Mobil, mk = Motor, s = Sepeda")
+    print("Contoh: mb1 untuk sewa mobil G-Class (nomor 1)")
+    print("="*120)
+    print("Ragu? Tanya ai masyud dengan ketik 'halo mas' di input manapun!")
 
-# Ambil input kendaraan
-kendaraan = input_user("Masukan jenis kendaraan yang akan di sewa : ").lower().replace(" ", "")
-if kendaraan in pilihan:
-    jenisKendaraan, harga, warnaTersedia = pilihan[kendaraan]
-    print(f"Anda memilih {jenisKendaraan} dengan harga Rp {format_rupiah(harga)} per hari.")
-    warna = pilih_warna(warnaTersedia)
-    print(f"Anda memilih warna {warna} untuk kendaraan {jenisKendaraan}.")
-else:
-    print("Kode kendaraan tidak valid!")
-    exit()
+    # Ambil input kendaraan
+    kendaraan = input_user("Masukan jenis kendaraan yang akan di sewa : ").lower().replace(" ", "")
+    if kendaraan in pilihan:
+        jenisKendaraan, harga, warnaTersedia = pilihan[kendaraan]
+        print(f"Anda memilih {jenisKendaraan} dengan harga Rp {format_rupiah(harga)} per hari.")
+        warna = pilih_warna(warnaTersedia)
+        print(f"Anda memilih warna {warna} untuk kendaraan {jenisKendaraan}.")
+    else:
+        print("Kode kendaraan tidak valid!")
+        exit()
 
-# =================== KONFIRMASI ===================
-print("\n" * 2)
-print("=" * 40)
-print("Konfirmasi sewa kendaraan")
-print("=" * 40)
-print("Jenis kendaraan yang akan di sewa : ", jenisKendaraan)
-print("Warna                             : ", warna)
-print("--------------------------------------------------")
-print("Harga sewa per hari : Rp", format_rupiah(harga))
-print("--------------------------------------------------")
-
-konfirmasi = input_user("Yakin akan sewa kendaraan ini? (Y/T) : ", choices=["Y","T"], capitalize=True)
-if konfirmasi == "T":
-    exit()
-
-# =================== SOPIR ===================
-if kendaraan in ["mb1", "mb2", "mb3", "mb4", "mb5", "mb6"]:
-    Sopir = 250000
+    # =================== KONFIRMASI ===================
     print("\n" * 2)
     print("=" * 40)
-    print("Sopir")
+    print("Konfirmasi sewa kendaraan")
     print("=" * 40)
-    print("Harga sopir per hari : Rp", format_rupiah(Sopir))
-    sopir = input_user("Apakah anda ingin sewa sopir? (Y/T) : ", choices=["Y","T"], capitalize=True)
-    if sopir.upper() == "Y":
-        hargaSopir = 250000
-    elif sopir.upper() == "T":
-        hargaSopir = 0
-    else:
-        print("Input tidak valid!")
+    print("Jenis kendaraan yang akan di sewa : ", jenisKendaraan)
+    print("Warna                             : ", warna)
+    print("--------------------------------------------------")
+    print("Harga sewa per hari : Rp", format_rupiah(harga))
+    print("--------------------------------------------------")
 
-# =================== HITUNG SUBTOTAL + PAJAK ===================
-jumlahHari = int(input_user("Masukan jumlah hari sewa kendaraan : "))
-totalHargaSopir = jumlahHari * hargaSopir
-subtotal = jumlahHari * harga + totalHargaSopir
-pajak = int(subtotal * 0.10)
-totalSebelumDiskon = subtotal + pajak
+    konfirmasi = input_user("Yakin akan sewa kendaraan ini? (Y/T) : ", choices=["Y","T"], capitalize=True)
+    if konfirmasi.upper() == "T":
+        return main()
 
-# =================== FORMULIR PENYEWA ===================
-print("\n" * 2)
-print("=" * 20)
-print("Formulir ketentuan penyewaan")
-print("=" * 20)
-nama = input_user("Masukan nama anda        : ")
-alamat = input_user("Masukan alamat anda      : ")
-telepon = input_user("Masukan nomor telepon    : ")
-jenisKelamin = input_user("Masukan jenis kelamin    : ")
+    # =================== SOPIR ===================
+    if kendaraan in ["mb1", "mb2", "mb3", "mb4", "mb5", "mb6"]:
+        Sopir = 250000
+        print("\n" * 2)
+        print("=" * 40)
+        print("Sopir")
+        print("=" * 40)
+        print("Harga sopir per hari : Rp", format_rupiah(Sopir))
+        sopir = input_user("Apakah anda ingin sewa sopir? (Y/T) : ", choices=["Y","T"], capitalize=True)
+        if sopir.upper() == "Y":
+            hargaSopir = 250000
+        elif sopir.upper() == "T":
+            hargaSopir = 0
+        else:
+            print("Input tidak valid!")
 
-# =================== JENIS JAMINAN ===================
-print("\n" + "="*20)
-print("Jenis Jaminan")
-print("="*20)
-print("1. KTP\n2. Pasport\n3. SIM")
-jaminan = input_user("Masukan jenis jaminan (1/2/3) : ", choices=["1","2","3"])
-if jaminan == "1":
-    jaminan = "KTP"
-    nik = input_user("Masukan NIK anda : ")
-elif jaminan == "2":
-    jaminan = "Pasport"
-    nomorPasport = input_user("Masukan Nomor Pasport anda : ")
-elif jaminan == "3":
-    jaminan = "SIM"
-    nomorSIM = input_user("Masukan Nomor SIM anda : ")
+    # =================== HITUNG SUBTOTAL + PAJAK ===================
+    jumlahHari = int(input_user("Masukan jumlah hari sewa kendaraan : "))
+    totalHargaSopir = jumlahHari * hargaSopir
+    subtotal = jumlahHari * harga + totalHargaSopir
+    pajak = int(subtotal * 0.10)
+    totalSebelumDiskon = subtotal + pajak
 
-# =================== DISKON ===================
-diskonPersen = 0
-if jumlahHari >= 14:
-    diskonPersen = 0.10
-elif jumlahHari >= 7:
-    diskonPersen = 0.05
-diskon = int(totalSebelumDiskon * diskonPersen)
-totalSetelahDiskon = totalSebelumDiskon - diskon
+    # =================== FORMULIR PENYEWA ===================
+    print("\n" * 2)
+    print("=" * 20)
+    print("Formulir ketentuan penyewaan")
+    print("=" * 20)
+    nama = input_user("Masukan nama anda        : ")
+    alamat = input_user("Masukan alamat anda      : ")
+    telepon = input_user("Masukan nomor telepon    : ")
+    jenisKelamin = input_user("Masukan jenis kelamin    : ")
 
-# =================== VOUCHER ===================
-voucher = input_user("Masukkan kode voucher (atau kosong jika tidak ada): ").upper()
-diskonVoucher = 0
-if voucher == "MERDEKA17":
-    diskonVoucher = int(totalSetelahDiskon * 0.17)
-    print(f"Voucher MERDEKA17 berhasil! Diskon tambahan Rp{format_rupiah(diskonVoucher)}")
-elif voucher == "HEMAT5":
-    diskonVoucher = int(totalSetelahDiskon * 0.05)
-    print(f"Voucher HEMAT5 berhasil! Diskon tambahan Rp{format_rupiah(diskonVoucher)}")
-elif voucher != "":
-    print("Kode voucher tidak valid.")
+    # =================== JENIS JAMINAN ===================
+    print("\n" + "="*20)
+    print("Jenis Jaminan")
+    print("="*20)
+    print("1. KTP\n2. Pasport\n3. SIM")
+    jaminan = input_user("Masukan jenis jaminan (1/2/3) : ", choices=["1","2","3"])
+    if jaminan == "1":
+        jaminan = "KTP"
+        nik = input_user("Masukan NIK anda : ")
+    elif jaminan == "2":
+        jaminan = "Pasport"
+        nomorPasport = input_user("Masukan Nomor Pasport anda : ")
+    elif jaminan == "3":
+        jaminan = "SIM"
+        nomorSIM = input_user("Masukan Nomor SIM anda : ")
 
-grandTotal = totalSetelahDiskon - diskonVoucher
+    # =================== DISKON ===================
+    diskonPersen = 0
+    if jumlahHari >= 14:
+        diskonPersen = 0.10
+    elif jumlahHari >= 7:
+        diskonPersen = 0.05
+    diskon = int(totalSebelumDiskon * diskonPersen)
+    totalSetelahDiskon = totalSebelumDiskon - diskon
 
-# =================== STRUK TAGIHAN ===================
-print("\n" + "=" * 120)
-print("                                                    Apen Al-wawi Rent")
-print("=" * 120)
-print("                                                    Bukti Penyewaan")
-print("-" * 120)
-print("Nama                         :", nama)
-print("Alamat                       :", alamat)
-print("Telepon                      :", telepon)
-print("Jenis Kelamin                :", jenisKelamin)
-print("Jenis Kendaraan              :", jenisKendaraan)
-print("Warna                        :", warna)
-print("Jumlah Hari Sewa             :", jumlahHari)
-print("Harga Sewa                   : Rp", format_rupiah(harga))
-print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
-print("Jumlah yang harus dibayar    : Rp", format_rupiah(grandTotal))
+    # =================== VOUCHER ===================
+    voucher = input_user("Masukkan kode voucher (atau kosong jika tidak ada): ").upper()
+    diskonVoucher = 0
+    if voucher == "MERDEKA17":
+        diskonVoucher = int(totalSetelahDiskon * 0.17)
+        print(f"Voucher MERDEKA17 berhasil! Diskon tambahan Rp{format_rupiah(diskonVoucher)}")
+    elif voucher == "HEMAT5":
+        diskonVoucher = int(totalSetelahDiskon * 0.05)
+        print(f"Voucher HEMAT5 berhasil! Diskon tambahan Rp{format_rupiah(diskonVoucher)}")
+    elif voucher != "":
+        print("Kode voucher tidak valid.")
 
-# =================== METODE PEMBAYARAN ===================
-print("\n" + "=" * 20)
-print("             Metode Pembayaran")
-print("=" * 20)
-print("1. Tunai\n2. Transfer")
-pembayaran = input_user("Masukan metode pembayaran (1/2) : ", choices=["1","2"])
+    grandTotal = totalSetelahDiskon - diskonVoucher
 
-if pembayaran == "1":
-    uang = int(input_user("Silakan isi jumlah uang yang akan dibayar : Rp"))
-    kembalian = uang - grandTotal
-    while kembalian < 0:
-        print(f"Uang tidak cukup! Masih kurang Rp{format_rupiah(-kembalian)}")
-        tambahan = int(input_user(f"Masukkan uang tambahan sebesar Rp{format_rupiah(-kembalian)}: "))
-        uang += tambahan
-        kembalian = uang - grandTotal
-
-    # =================== CETAK STRUK ===================
+    # =================== STRUK TAGIHAN ===================
     print("\n" + "=" * 120)
     print("                                                    Apen Al-wawi Rent")
     print("=" * 120)
-    print("                                                    Bukti Pembayaran")
+    print("                                                    Bukti Penyewaan")
     print("-" * 120)
-    print("Nama                                     :", nama)
-    print("Alamat                                   :", alamat)
-    print("Jenis Kelamin                            :", jenisKelamin)
-    print(f"Nomor Telepon                           : {telepon}")
-    print("--------------------------------------------------------------------------------------")
-    print("Pesanan Anda:")
-    print("-------------------------------------------------------------------------------------")
-    print(f"Jenis Kendaraan                         : {jenisKendaraan}")
-    print(f"Jumlah Hari                             : {jumlahHari}")
-    print(f"Subtotal                                : Rp{format_rupiah(subtotal)}")
-    print(f"Pajak (10%)                             : Rp{format_rupiah(pajak)}")
-    if diskonPersen > 0:
-        print(f"Diskon Durasi                       : Rp{format_rupiah(diskon)}")
-    if diskonVoucher > 0:
-        print(f"Voucher Diskon                      : Rp{format_rupiah(diskonVoucher)}")
+    print("Nama                         :", nama)
+    print("Alamat                       :", alamat)
+    print("Telepon                      :", telepon)
+    print("Jenis Kelamin                :", jenisKelamin)
+    print("Jenis Kendaraan              :", jenisKendaraan)
+    print("Warna                        :", warna)
+    print("Jumlah Hari Sewa             :", jumlahHari)
+    print("Harga Sewa                   : Rp", format_rupiah(harga))
     print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
-    print(f"Total Bayar                             : Rp{format_rupiah(grandTotal)}")
-    print("Metode Pembayaran                        : Tunai")
-    print("Nominal Pembayaran                       : Rp", format_rupiah(uang))
-    print("Kembalian                                : Rp", format_rupiah(kembalian))
-    print("=" * 120)
+    print("Jumlah yang harus dibayar    : Rp", format_rupiah(grandTotal))
 
-    with open("struk_penyewaan.txt", "w", encoding="utf-8") as f:
-        f.write("==================================================\n")
-        f.write("                Apen Al-wawi Rent\n")
-        f.write("==================================================\n")
-        f.write("Bukti Pembayaran\n")
-        f.write("--------------------------------------------------\n")
-        f.write(f"Nama             : {nama}\n")
-        f.write(f"Alamat           : {alamat}\n")
-        f.write(f"Jenis Kelamin    : {jenisKelamin}\n")
-        f.write(f"No. Telepon      : {telepon}\n")
-        f.write("--------------------------------------------------\n")
-        f.write("Pesanan Anda:\n")
-        f.write(f"Jenis Kendaraan  : {jenisKendaraan}\n")
-        f.write(f"Jumlah Hari      : {jumlahHari}\n")
-        f.write(f"Subtotal         : Rp{format_rupiah(subtotal)}\n")
-        f.write(f"Pajak (10%)      : Rp{format_rupiah(pajak)}\n")
+    # =================== METODE PEMBAYARAN ===================
+    print("\n" + "=" * 20)
+    print("             Metode Pembayaran")
+    print("=" * 20)
+    print("1. Tunai\n2. Transfer")
+    pembayaran = input_user("Masukan metode pembayaran (1/2) : ", choices=["1","2"])
+
+    if pembayaran == "1":
+        uang = int(input_user("Silakan isi jumlah uang yang akan dibayar : Rp"))
+        kembalian = uang - grandTotal
+        while kembalian < 0:
+            print(f"Uang tidak cukup! Masih kurang Rp{format_rupiah(-kembalian)}")
+            tambahan = int(input_user(f"Masukkan uang tambahan sebesar Rp{format_rupiah(-kembalian)}: "))
+            uang += tambahan
+            kembalian = uang - grandTotal
+
+        # =================== CETAK STRUK ===================
+        print("\n" + "=" * 120)
+        print("                                                    Apen Al-wawi Rent")
+        print("=" * 120)
+        print("                                                    Bukti Pembayaran")
+        print("-" * 120)
+        print("Nama                                     :", nama)
+        print("Alamat                                   :", alamat)
+        print("Jenis Kelamin                            :", jenisKelamin)
+        print(f"Nomor Telepon                           : {telepon}")
+        print("--------------------------------------------------------------------------------------")
+        print("Pesanan Anda:")
+        print("-------------------------------------------------------------------------------------")
+        print(f"Jenis Kendaraan                         : {jenisKendaraan}")
+        print(f"Jumlah Hari                             : {jumlahHari}")
+        print(f"Subtotal                                : Rp{format_rupiah(subtotal)}")
+        print(f"Pajak (10%)                             : Rp{format_rupiah(pajak)}")
         if diskonPersen > 0:
-            f.write(f"Diskon Durasi     : Rp{format_rupiah(diskon)}\n")
+            print(f"Diskon Durasi                       : Rp{format_rupiah(diskon)}")
         if diskonVoucher > 0:
-            f.write(f"Voucher Diskon    : Rp{format_rupiah(diskonVoucher)}\n")
-        f.write(f"Harga Sopir ({jumlahHari} x {format_rupiah(hargaSopir)}): Rp{format_rupiah(totalHargaSopir)}\n")
-        f.write(f"Nominal Dibayar  : Rp{format_rupiah(uang)}\n")
-        f.write(f"Kembalian        : Rp{format_rupiah(kembalian)}\n")
-        f.write("==================================================\n")
-        print("Struk berhasil disimpan ke file: struk_penyewaan.txt")
+            print(f"Voucher Diskon                      : Rp{format_rupiah(diskonVoucher)}")
+        print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
+        print(f"Total Bayar                             : Rp{format_rupiah(grandTotal)}")
+        print("Metode Pembayaran                        : Tunai")
+        print("Nominal Pembayaran                       : Rp", format_rupiah(uang))
+        print("Kembalian                                : Rp", format_rupiah(kembalian))
+        print("=" * 120)
 
-elif pembayaran == "2":
-    # =================== PEMBAYARAN TRANSFER ===================
-    print("Metode pembayaran transfer")
-    print("Silakan transfer ke rekening berikut:")
-    print("Bank ABC - 123456789 a.n Apen Al-wawi Rent")
-    print(f"Total yang harus ditransfer: Rp{format_rupiah(grandTotal)}")
-    print("=" * 120)
-    print("                     Terima kasih atas penyewaan Anda!")
-    print("=" * 120)
-else:
-    print("Metode pembayaran tidak tersedia")
+        with open("struk_penyewaan.txt", "w", encoding="utf-8") as f:
+            f.write("==================================================\n")
+            f.write("                Apen Al-wawi Rent\n")
+            f.write("==================================================\n")
+            f.write("Bukti Pembayaran\n")
+            f.write("--------------------------------------------------\n")
+            f.write(f"Nama             : {nama}\n")
+            f.write(f"Alamat           : {alamat}\n")
+            f.write(f"Jenis Kelamin    : {jenisKelamin}\n")
+            f.write(f"No. Telepon      : {telepon}\n")
+            f.write("--------------------------------------------------\n")
+            f.write("Pesanan Anda:\n")
+            f.write(f"Jenis Kendaraan  : {jenisKendaraan}\n")
+            f.write(f"Jumlah Hari      : {jumlahHari}\n")
+            f.write(f"Subtotal         : Rp{format_rupiah(subtotal)}\n")
+            f.write(f"Pajak (10%)      : Rp{format_rupiah(pajak)}\n")
+            if diskonPersen > 0:
+                f.write(f"Diskon Durasi     : Rp{format_rupiah(diskon)}\n")
+            if diskonVoucher > 0:
+                f.write(f"Voucher Diskon    : Rp{format_rupiah(diskonVoucher)}\n")
+            f.write(f"Harga Sopir ({jumlahHari} x {format_rupiah(hargaSopir)}): Rp{format_rupiah(totalHargaSopir)}\n")
+            f.write(f"Nominal Dibayar  : Rp{format_rupiah(uang)}\n")
+            f.write(f"Kembalian        : Rp{format_rupiah(kembalian)}\n")
+            f.write("==================================================\n")
+            print("Struk berhasil disimpan ke file: struk_penyewaan.txt")
+
+    elif pembayaran == "2":
+        # =================== PEMBAYARAN TRANSFER ===================
+        print("Metode pembayaran transfer")
+        print("Silakan transfer ke rekening berikut:")
+        print("Bank ABC - 123456789 a.n Apen Al-wawi Rent")
+        print(f"Total yang harus ditransfer: Rp{format_rupiah(grandTotal)}")
+        print("=" * 120)
+        print("                     Terima kasih atas penyewaan Anda!")
+        print("=" * 120)
+    else:
+        print("Metode pembayaran tidak tersedia")
+main()

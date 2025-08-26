@@ -308,19 +308,21 @@ if konfirmasi == "T":
     exit()
 
 # =================== SOPIR ===================
-Sopir = 250000
-print("\n" * 2)
-print("=" * 40)
-print("Sopir")
-print("=" * 40)
-print("Harga sopir per hari : Rp", format_rupiah(Sopir))
-sopir = input_user("Apakah anda ingin sewa sopir? (Y/T) : ", choices=["Y","T"], capitalize=True)
-if sopir.upper() == "Y":
-    hargaSopir = 250000
-elif sopir.upper() == "T":
-    hargaSopir = 0
-else:
-    print("Input tidak valid!")
+if kendaraan in ["mb1", "mb2", "mb3", "mb4", "mb5", "mb6"]:
+    Sopir = 250000
+    print("\n" * 2)
+    print("=" * 40)
+    print("Sopir")
+    print("=" * 40)
+    print("Harga sopir per hari : Rp", format_rupiah(Sopir))
+    sopir = input_user("Apakah anda ingin sewa sopir? (Y/T) : ", choices=["Y","T"], capitalize=True)
+    if sopir.upper() == "Y":
+        hargaSopir = 250000
+    elif sopir.upper() == "T":
+        hargaSopir = 0
+    else:
+        print("Input tidak valid!")
+
 # =================== HITUNG SUBTOTAL + PAJAK ===================
 jumlahHari = int(input_user("Masukan jumlah hari sewa kendaraan : "))
 totalHargaSopir = jumlahHari * hargaSopir

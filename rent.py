@@ -109,6 +109,7 @@ License:
 from dotenv import load_dotenv
 import os
 import google.generativeai as masyud
+import time
 
 # Load .env
 load_dotenv()
@@ -219,6 +220,7 @@ def input_user(prompt_text, choices=None, capitalize=False):
             # Normalisasi input biar fleksibel (bisa kecil, besar, campur)
             if (user_input in choices or user_input.lower() in [c.lower() for c in choices]):
                 return user_input
+            print("-" * 120)
             print(f"Input tidak valid. Pilihan: {', '.join(choices)}")
             continue
 
@@ -252,11 +254,11 @@ def tabelAwal():
     print("="*120)
     print("-"*120)
     # Judul tabel
-    print(f"{'No':<5} | {'Mobil':<50} | {'Motor':<40} | {'Sepeda':<20}")
+    print(f"{'No':<2} | {'Mobil':<50} | {'Motor':<40} | {'Sepeda':<20}")
     print("-"*120)
     # Isi tabel
     for row in data:
-        print(f"{row[0]:<5} | {row[1]:<50} | {row[2]:<40} | {row[3]:<20}")
+        print(f"{row[0]:<2} | {row[1]:<50} | {row[2]:<40} | {row[3]:<20}")
     print("-"*120)
 
 # =================== PILIH WARNA ===================
@@ -270,7 +272,7 @@ def pilih_warna(warnaTersedia):
     Returns:
         str: Warna kendaraan yang dipilih user.
     """
-    print("Pilihan warna tersedia:", ", ".join(warnaTersedia))
+    print("\nPilihan warna tersedia:", ", ".join(warnaTersedia))
     return input_user("Pilih warna kendaraan: ", choices=warnaTersedia, capitalize=True)
 
 # =================== MAIN PROGRAM ===================
@@ -285,18 +287,25 @@ def main():
     print("mb = Mobil, mk = Motor, s = Sepeda")
     print("Contoh: mb1 untuk sewa mobil G-Class (nomor 1)")
     print("="*120)
-    print("Ragu? Tanya ai masyud dengan ketik 'halo mas' di input manapun!")
+    print("Ragu? Tanya AI Masyud dengan ketik 'halo mas' di input manapun!")
 
     # Ambil input kendaraan
     kendaraan = input_user("Masukan jenis kendaraan yang akan di sewa : ").lower().replace(" ", "")
+    print("")
     if kendaraan in pilihan:
         jenisKendaraan, harga, warnaTersedia = pilihan[kendaraan]
         print(f"Anda memilih {jenisKendaraan} dengan harga Rp {format_rupiah(harga)} per hari.")
-        warna = pilih_warna(warnaTersedia)
+        warna = pilih_warna(warnaTersedia).capitalize()
         print(f"Anda memilih warna {warna} untuk kendaraan {jenisKendaraan}.")
     else:
-        print("Kode kendaraan tidak valid!")
+        print("")
+        print("=" * 120, "\n")
+        print("Kode kendaraan tidak valid!\nSedang memuat ulang program. Harap tunggu sebentar...\n")
+        print("=" * 120)
+        print("")
+        time.sleep(2)
         main()
+        return
 
     # =================== KONFIRMASI ===================
     print("\n" * 2)
@@ -330,12 +339,21 @@ def main():
             print("Input tidak valid!")
 
     # =================== HITUNG SUBTOTAL + PAJAK ===================
-    jumlahHari = int(input_user("Masukan jumlah hari sewa kendaraan : "))
+    while True:
+        user_input = input_user("\nMasukan jumlah hari sewa kendaraan : ")
+        try:
+            jumlahHari = int(user_input)
+            if jumlahHari > 0:
+                break
+            else:
+                print("0 Bukan jumlah hari yang valid. Silakan coba lagi.")
+        except ValueError:
+            print("Input tidak valid. Silakan coba lagi.")
+
     totalHargaSopir = jumlahHari * hargaSopir
     subtotal = jumlahHari * harga + totalHargaSopir
     pajak = int(subtotal * 0.10)
     totalSebelumDiskon = subtotal + pajak
-
     # =================== FORMULIR PENYEWA ===================
     print("\n" * 2)
     print("=" * 20)
@@ -399,22 +417,23 @@ def main():
     print("Warna                        :", warna)
     print("Jumlah Hari Sewa             :", jumlahHari)
     print("Harga Sewa                   : Rp", format_rupiah(harga))
-    print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
+    print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),")    : Rp", format_rupiah(totalHargaSopir))
     print("Jumlah yang harus dibayar    : Rp", format_rupiah(grandTotal))
 
     # =================== METODE PEMBAYARAN ===================
     print("\n" + "=" * 20)
-    print("             Metode Pembayaran")
+    print("Metode Pembayaran")
     print("=" * 20)
     print("1. Tunai\n2. Transfer")
     pembayaran = input_user("Masukan metode pembayaran (1/2) : ", choices=["1","2"])
 
     if pembayaran == "1":
-        uang = int(input_user("Silakan isi jumlah uang yang akan dibayar : Rp"))
+        uang = int(input_user("\nSilakan isi jumlah uang yang akan dibayar : Rp"))
         kembalian = uang - grandTotal
         while kembalian < 0:
-            print(f"Uang tidak cukup! Masih kurang Rp{format_rupiah(-kembalian)}")
-            tambahan = int(input_user(f"Masukkan uang tambahan sebesar Rp{format_rupiah(-kembalian)}: "))
+            print(f"\nUang tidak cukup! Masih kurang Rp{format_rupiah(-kembalian)}")
+            tambahan = int(input_user(f"Masukkan uang tambahan sebesar Rp{format_rupiah(-kembalian)}: Rp"))
+            print("")
             uang += tambahan
             kembalian = uang - grandTotal
 
@@ -427,20 +446,20 @@ def main():
         print("Nama                                     :", nama)
         print("Alamat                                   :", alamat)
         print("Jenis Kelamin                            :", jenisKelamin)
-        print(f"Nomor Telepon                           : {telepon}")
+        print(f"Nomor Telepon                            : {telepon}")
         print("--------------------------------------------------------------------------------------")
         print("Pesanan Anda:")
         print("-------------------------------------------------------------------------------------")
-        print(f"Jenis Kendaraan                         : {jenisKendaraan}")
-        print(f"Jumlah Hari                             : {jumlahHari}")
-        print(f"Subtotal                                : Rp{format_rupiah(subtotal)}")
-        print(f"Pajak (10%)                             : Rp{format_rupiah(pajak)}")
+        print(f"Jenis Kendaraan                          : {jenisKendaraan}")
+        print(f"Jumlah Hari                              : {jumlahHari}")
+        print(f"Subtotal                                 : Rp{format_rupiah(subtotal)}")
+        print(f"Pajak (10%)                              : Rp{format_rupiah(pajak)}")
         if diskonPersen > 0:
-            print(f"Diskon Durasi                       : Rp{format_rupiah(diskon)}")
+            print(f"Diskon Durasi                           : Rp{format_rupiah(diskon)}")
         if diskonVoucher > 0:
-            print(f"Voucher Diskon                      : Rp{format_rupiah(diskonVoucher)}")
-        print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),"): Rp", format_rupiah(totalHargaSopir))
-        print(f"Total Bayar                             : Rp{format_rupiah(grandTotal)}")
+            print(f"Voucher Diskon                          : Rp{format_rupiah(diskonVoucher)}")
+        print("Harga Sopir (", jumlahHari, "x", format_rupiah(hargaSopir),")        : Rp", format_rupiah(totalHargaSopir))
+        print(f"Total Bayar                              : Rp{format_rupiah(grandTotal)}")
         print("Metode Pembayaran                        : Tunai")
         print("Nominal Pembayaran                       : Rp", format_rupiah(uang))
         print("Kembalian                                : Rp", format_rupiah(kembalian))

@@ -176,9 +176,9 @@ def tanya_masyud():
             print("Masyud: Oke, sampai jumpa!")
             break
         if pertanyaan.lower() in ["pelajari masyud"]:
-            print("=" * 120)
-            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui program ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.")
-            print("=" * 120)
+            print("-" * 120)
+            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.\nMasyud dilatih untuk mengenal dan menjawab HANYA seputar program ini.")
+            print("-" * 120)
             continue
         print("Masyud: [berfikir...]")
         full_prompt = f"""
@@ -275,6 +275,11 @@ def pilih_warna(warnaTersedia):
 
 # =================== MAIN PROGRAM ===================
 def main():
+    """
+    Fungsi main program.
+    Menampilkan menu pilihan kendaraan dan melakukan proses sewa kendaraan.
+    """
+
     tabelAwal()
     print("Masukan jenis kendaraan yang akan di sewa dengan kode: ")
     print("mb = Mobil, mk = Motor, s = Sepeda")
@@ -291,7 +296,7 @@ def main():
         print(f"Anda memilih warna {warna} untuk kendaraan {jenisKendaraan}.")
     else:
         print("Kode kendaraan tidak valid!")
-        exit()
+        main()
 
     # =================== KONFIRMASI ===================
     print("\n" * 2)

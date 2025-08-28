@@ -323,6 +323,7 @@ def main():
         return main()
 
     # =================== SOPIR ===================
+    hargaSopir = 0
     if kendaraan in ["mb1", "mb2", "mb3", "mb4", "mb5", "mb6"]:
         Sopir = 250000
         print("\n" * 2)

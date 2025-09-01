@@ -114,6 +114,8 @@ import time
 # Load .env
 load_dotenv()
 
+LOG_FILE = 'chatlog.txt'
+
 # Ambil API key dari environment
 api_key = os.getenv("MASYUD_API_KEY")
 
@@ -157,42 +159,98 @@ with open("context.txt", "r", encoding="utf-8") as f:
     base_context = f.read()
 
 # =================== AI FUNCTION ===================
+
+def save_chat(role, text):
+    """
+    Fungsi untuk menyimpan chat history.
+    Menyimpan chat history di file 'chatlog.txt'.
+
+    Args:
+        role (str): Peran yang sedang berbicara (Anda atau Masyud).
+        text (str): Teks yang diucapkan peran tersebut.
+    """
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{role}: {text}\n")
+
+def load_chat_history(limit=5):
+    """
+    Fungsi untuk memuat riwayat chat.
+
+    Args:
+        limit (int): Jumlah baris riwayat chat yang ingin dimuat. Default 5.
+
+    Returns:
+        str: Riwayat chat dalam bentuk string.
+    """
+    if not os.path.exists(LOG_FILE):
+        return ""
+
+    with open(LOG_FILE, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    recent_lines = lines[-limit:]
+    return "".join(recent_lines)
+
 def tanya_masyud():
     """
-    Fungsi interaktif untuk bertanya ke AI customer service seputar penyewaan kendaraan.
-    User dapat keluar dengan mengetik 'keluar', 'exit', atau 'quit'.
-    Jawaban AI berdasarkan data dan konteks rental.
+    Fungsi untuk berinteraksi dengan AI Masyud.
+    AI Masyud berbasis pada LLM Gemini 2.0 Flash buatan Google.
+    AI Masyud dapat berbicara seputar program ini dan mungkin akan membuat kesalahan.
+    Harap periksa info penting sebelum berbicara dengan AI Masyud.
+
+    Ketik 'Pelajari Masyud' untuk info lebih lanjut.
+    Ketik 'keluar', 'exit', 'quit' untuk berhenti interaksi.
+
+    Bagaimana cara kami menggunakan data anda?
+    Kami (Rayud) tidak mengambil data apapun dari program ini.
+    Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.
     """
     print("")
     print("=" * 120)
     print("(C) Copyright 2025 Rayud All Rights Reserved.")
-    print("Rayud Masyud | Version 0.9.2 | Powered by Gemini.")
+    print("Rayud Masyud | Version 1.0.0 | Powered by Gemini.")
     print("Anda memasuki mode AI customer service. AI bersifat eksperimental dan mungkin akan membuat kesalahan. \nHarap periksa info penting. Ketik 'Pelajari Masyud' untuk info lebih lanjut.")
     print("Ketik 'keluar', 'exit', 'quit' untuk berhenti interaksi.")
     print("=" * 120)
-    print("Masyud: Halo! Mau tanya apa seputar penyewaan?")
+
+    pembuka = "Halo! Mau tanya apa seputar penyewaan?"
+    print("Masyud:", pembuka)
+    save_chat("Masyud", pembuka)
+
     while True:
         pertanyaan = input("Anda: ")
+        save_chat("Anda", pertanyaan)
+
         if pertanyaan.lower() in ["keluar", "exit", "quit"]:
-            print("Masyud: Oke, sampai jumpa!")
+            pamit = "Oke, sampai jumpa!"
+            print("Masyud:", pamit)
+            save_chat("Masyud", pamit)
             break
-        if pertanyaan.lower() in ["pelajari masyud"]:
+
+        if pertanyaan.lower() == "pelajari masyud":
+            info = "Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.\nMasyud dilatih untuk mengenal dan menjawab HANYA seputar program ini"
             print("-" * 120)
-            print("Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.\nMasyud dilatih untuk mengenal dan menjawab HANYA seputar program ini.")
+            print(info)
+            save_chat("Masyud", info)
             print("-" * 120)
             continue
+
+        history = load_chat_history(limit=5)
+
         print("Masyud: [berfikir...]")
         full_prompt = f"""
         {base_context}
 
-        Tolong jawab pertanyaan user berdasarkan data di atas.
-        Jika ada perhitungan harga (jumlah hari, pajak, diskon), lakukan perhitungan langsung.
-        Gunakan format rupiah dengan titik pemisah ribuan. Jangan jawab di luar data.
+        Berikut adalah cuplikan percakapan sebelumnya:
+        {history}
 
+        Sekarang lanjutkan percakapan:
         User: {pertanyaan}
         """
+
         response = model.generate_content(full_prompt)
         print("Masyud:", response.text)
+        save_chat("Masyud", response.text)
 
 # =================== INPUT FUNCTION ===================
 def input_user(prompt_text, choices=None, capitalize=False):

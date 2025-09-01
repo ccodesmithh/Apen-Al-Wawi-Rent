@@ -121,7 +121,7 @@ api_key = os.getenv("MASYUD_API_KEY")
 
 masyud.configure(api_key=api_key)
 model = masyud.GenerativeModel(
-    "gemini-2.0-flash", 
+    "gemini-2.5-flash", 
     system_instruction="Kamu adalah customer service untuk Apen Al-wawi Rent. Jawablah hanya seputar layanan rental kendaraan ini."
 )
 
@@ -228,7 +228,7 @@ def tanya_masyud():
             break
 
         if pertanyaan.lower() == "pelajari masyud":
-            info = "Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.0 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.\nMasyud dilatih untuk mengenal dan menjawab HANYA seputar program ini"
+            info = "Masyud adalah AI (Artificial Intelligence) atau Kecerdasan Buatan yang mungkin akan membuat kesalahan. Masyud berbasis pada LLM buatan Google, yakni Gemini 2.5 Flash. \nDiskusikan apapun yang anda inginkan bersama Masyud. \nBagaimana cara kami menggunakan data anda? Kami (Rayud) tidak mengambil data apapun dari program ini. Data yang anda kirimkan melalui Masyud ini akan langsung dikirimkan ke Google Gemini tanpa adanya interupsi dari Kami.\nMasyud dilatih untuk mengenal dan menjawab HANYA seputar program ini"
             print("-" * 120)
             print(info)
             save_chat("Masyud", info)

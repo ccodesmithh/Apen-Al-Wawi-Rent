@@ -18,6 +18,8 @@ env/
 # chatlog
 chatlog.txt
 
+struk_penyewaan.txt
+
 # Editor & OS files
 .vscode/
 .idea/

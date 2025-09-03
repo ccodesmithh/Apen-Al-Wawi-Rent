@@ -194,7 +194,7 @@ def load_chat_history(limit=5):
 def tanya_masyud():
     """
     Fungsi untuk berinteraksi dengan AI Masyud.
-    AI Masyud berbasis pada LLM Gemini 2.0 Flash buatan Google.
+    AI Masyud berbasis pada LLM Gemini 2.5 Flash buatan Google.
     AI Masyud dapat berbicara seputar program ini dan mungkin akan membuat kesalahan.
     Harap periksa info penting sebelum berbicara dengan AI Masyud.
 

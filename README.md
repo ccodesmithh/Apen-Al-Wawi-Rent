@@ -1,8 +1,6 @@
 # Apen Al-wawi
 
-# UNDER MAINTENACE
-
-<!-- Ringkasan
+Ringkasan
 - Program CLI sederhana untuk menyewa kendaraan (mobil, motor, sepeda) dengan fitur perhitungan harga, pajak, diskon, voucher, dan pencetakan struk.
 - Menyediakan interaksi singkat dengan AI customer service (masyud) berdasarkan isi `context.txt`.
 
@@ -89,4 +87,4 @@ Lisensi & Catatan
   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE. -->
+  SOFTWARE.
